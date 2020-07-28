@@ -1,0 +1,19 @@
+#version 330 core
+out vec4 FragColour;
+
+in vec4 vertexColour;
+in vec2 UVs1;
+in vec2 UVs2;
+
+uniform sampler2D texture1;
+uniform sampler2D texture2;
+uniform sampler2D texture3;	// This one has transparency
+
+void main() 
+{
+	FragColour = mix(texture(texture1, UVs1) * 0.5f, texture(texture2, UVs1) * 1.5f, vertexColour);
+
+	vec4 tex3 = texture(texture3, UVs2);
+
+	FragColour = mix(FragColour, tex3, tex3.a);
+}

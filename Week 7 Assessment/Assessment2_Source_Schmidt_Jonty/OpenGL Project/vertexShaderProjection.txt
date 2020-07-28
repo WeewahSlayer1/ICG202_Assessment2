@@ -1,0 +1,23 @@
+#version 330 core
+
+layout (location = 0) in vec3 aPos;		//Vertex position
+layout (location = 1) in vec3 aColour;		//Vertex colour
+layout (location = 2) in vec2 aUVs1;		//Vertex UVs
+layout (location = 3) in vec2 aUVs2;		//Vertex UVs
+
+out vec4 vertexColour;
+out vec2 UVs1;
+out vec2 UVs2;
+
+uniform mat4 model;	// Local to world coordinates
+uniform mat4 view;	// Moves world space objects around based on camera
+uniform mat4 projection;
+
+void main()
+{
+	// Note: Matrices multiply right to left
+	gl_Position = projection * view * model * vec4(aPos, 1.0);
+	vertexColour = vec4(aColour, 1);
+	UVs1 = aUVs1;
+	UVs2 = aUVs2;
+}
